@@ -33,16 +33,20 @@ public class Rover {
     private Player tphRequest;
     private boolean isOnline;
     private String prefix;
+    private PlayerTime ontime;
 
     public PlayerTime getOntime() {
         return ontime;
     }
 
     public void setOntime(PlayerTime ontime) {
-        this.ontime = ontime;
+        if (ontime == null) {
+            this.ontime = new PlayerTime();
+        } else {
+            this.ontime = ontime;
+        }
     }
 
-    private PlayerTime ontime;
 
     public String getPrefix() {
         return prefix;
@@ -278,7 +282,28 @@ public class Rover {
         return isOnline;
     }
 
-    public void ontimeTimer(Player p, Main plugin, PlayerDataReader pfo) {
+    public void ontimeTimer(Player p, Main plugin) {
+        BukkitTask ontime = new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                if (p.isOnline()) {
+                    getOntime().increaseTime();
+                    PlayerFileSaver fs = new PlayerFileSaver();
+                    try {
+                        fs.savePlayerFile(PlayerController.getPlayer(p));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    OntimeCheckEvent.ontimeChangeEvent(p);
+                    ontimeTimer(p, plugin);
+                }
+            }
+        }.runTaskLater(plugin, 300 * 20);
+        PlayerController.ontimeTasks.remove(p.getUniqueId());
+        PlayerController.ontimeTasks.put(p.getUniqueId(), ontime.getTaskId());
+    }
+  /*  public void ontimeTimer(Player p, Main plugin, PlayerDataReader pfo) {
         BukkitTask ontime = new BukkitRunnable() {
 
             @Override
@@ -293,20 +318,5 @@ public class Rover {
         }.runTaskLater(plugin, 300 * 20);
         PlayerController.ontimeTasks.remove(p.getUniqueId());
         PlayerController.ontimeTasks.put(p.getUniqueId(), ontime.getTaskId());
-
-
-        /*Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-            @Override
-            public void run() {
-                //TODO cancel task når spiller logger av
-                if (p.isOnline()) {
-                    int ontimeMin = pfo.getFileConfig(p).getInt("ontime") + 5;
-                    pfo.writeToFile(p, "ontime", ontimeMin);
-                    OntimeCheckEvent.ontimeChangeEvent(p);
-                    ontimeTimer(p, plugin, pfo);
-                }
-
-            }
-        }, 300 * 20);*/
-    }
+    }*/
 }

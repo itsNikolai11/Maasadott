@@ -44,7 +44,7 @@ public class PlayerController {
         PlayerController.onlinePlayers.add(po);
         po.setOnline(true);
         po.checkAfk(p, Main.getPlugin(no.nkopperudmoen.måsadott.Main.class));
-        po.ontimeTimer(p, Main.getPlugin(no.nkopperudmoen.måsadott.Main.class), new PlayerDataReader(Main.getPlugin(no.nkopperudmoen.måsadott.Main.class)));
+        po.ontimeTimer(p, Main.getPlugin(no.nkopperudmoen.måsadott.Main.class));
         updateDisplayName(p);
         return po;
     }

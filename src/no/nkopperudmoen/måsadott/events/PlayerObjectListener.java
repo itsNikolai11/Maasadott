@@ -1,6 +1,7 @@
 package no.nkopperudmoen.måsadott.events;
 
 import no.nkopperudmoen.måsadott.Main;
+import no.nkopperudmoen.måsadott.filbehandling.PlayerFileSaver;
 import no.nkopperudmoen.måsadott.util.Messages;
 import no.nkopperudmoen.måsadott.util.PlayerDataReader;
 import no.nkopperudmoen.måsadott.Rover.Rover;
@@ -17,6 +18,8 @@ import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+
+import java.io.IOException;
 
 public class PlayerObjectListener implements Listener {
     private Main plugin;
@@ -50,7 +53,12 @@ public class PlayerObjectListener implements Listener {
 
         }
         e.setJoinMessage(Messages.CONNECT.replaceAll("%spiller%", ChatColor.translateAlternateColorCodes('&', Main.chat.getPlayerPrefix(p)) + " " + p.getName()));
-        FileConfiguration fc = pfo.getFileConfig(p);
+        PlayerFileSaver fs = new PlayerFileSaver();
+        try {
+            fs.savePlayerFile(po);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @EventHandler
@@ -61,7 +69,6 @@ public class PlayerObjectListener implements Listener {
         PlayerController.ontimeTasks.remove(e.getPlayer().getUniqueId());
         PlayerController.afkTasks.remove(e.getPlayer().getUniqueId());
         PlayerController.onlinePlayers.remove(Rover.getPlayerObject(e.getPlayer()));
-        System.out.println(PlayerController.afkTasks);
         e.setQuitMessage(Messages.DISCONNECT.replaceAll("%spiller%", ChatColor.translateAlternateColorCodes('&', Main.chat.getPlayerPrefix(e.getPlayer())) + " " + e.getPlayer().getName()));
 
     }

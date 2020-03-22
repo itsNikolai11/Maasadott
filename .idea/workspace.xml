@@ -32,9 +32,10 @@
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="måsadott" />
     <property name="last_opened_file_path" value="D:/workspace/Server-Plugin_1.14" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -64,6 +65,10 @@
     </state>
     <state x="765" y="229" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1584740375172" />
     <state x="2685" y="229" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584903719677" />
+    <state x="2609" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1584909191240">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2609" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584909191240" />
     <state x="2446" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1583878953274">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -80,10 +85,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1584740525686" />
-    <state x="440" y="94" key="SettingsEditor" timestamp="1583881990994">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2360" y="94" key="SettingsEditor" timestamp="1584909208502">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="94" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583881990994" />
+    <state x="2360" y="94" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1584909208502" />
     <state x="342" y="140" key="new project wizard" timestamp="1584484351280">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

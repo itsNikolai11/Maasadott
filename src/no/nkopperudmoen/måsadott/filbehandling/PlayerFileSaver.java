@@ -16,6 +16,7 @@ public class PlayerFileSaver implements FileSaver, Serializable {
         OutputStream out = Files.newOutputStream(Paths.get((Main.getPlugin(Main.class).getDataFolder().toPath() + "\\Players\\" + p.getUuid() + ".jobj")));
         ObjectOutputStream os = new ObjectOutputStream(out);
         os.writeObject(p.getHomes());
+        os.writeObject(p.getOntime());
 
     }
 }

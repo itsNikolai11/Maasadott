@@ -3,6 +3,7 @@ package no.nkopperudmoen.måsadott.commands;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import no.nkopperudmoen.måsadott.Main;
+import no.nkopperudmoen.måsadott.controllers.PlayerController;
 import no.nkopperudmoen.måsadott.events.OntimeCheckEvent;
 import no.nkopperudmoen.måsadott.util.*;
 import org.bukkit.Bukkit;
@@ -33,9 +34,11 @@ public class Ontime implements CommandExecutor {
                 if (pd.getFileConfig(p) == null) {
                     //TODO Spiller ikke funnet melding
                 } else {
-                    FileConfiguration playerConfig = pd.getFileConfig(target);
                     RankFileReader rf = new RankFileReader();
-                    int minOnline = playerConfig.getInt("ontime");
+                    /*FileConfiguration playerConfig = pd.getFileConfig(target);
+
+                    int minOnline = playerConfig.getInt("ontime");*/
+                    int minOnline = PlayerController.getPlayer(target).getOntime().getMin();
                     if (rf.getNextRank(target) == null) {
                         p.sendMessage(Messages.ONTIME.replaceAll("%ontime%", TimeConverter.toString(TimeConverter.convertTime(minOnline))).replaceAll("%rank%", "ingen nye ranks"));
                     } else {
@@ -46,10 +49,11 @@ public class Ontime implements CommandExecutor {
                 p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(Messages.NO_ACCESS));
             }
         } else {
-            PlayerDataReader pd = new PlayerDataReader(plugin);
-            FileConfiguration playerConfig = pd.getFileConfig(p);
+            /*PlayerDataReader pd = new PlayerDataReader(plugin);
+            FileConfiguration playerConfig = pd.getFileConfig(p);*/
             RankFileReader rf = new RankFileReader();
-            int minOnline = playerConfig.getInt("ontime");
+            // int minOnline = playerConfig.getInt("ontime");
+            int minOnline = PlayerController.getPlayer(p).getOntime().getMin();
             if (rf.getNextRank(p) == null) {
                 p.sendMessage(Messages.ONTIME.replaceAll("%ontime%", TimeConverter.toString(TimeConverter.convertTime(minOnline))).replaceAll("%rank%", "ingen nye ranks"));
             } else {

@@ -14,14 +14,15 @@ public class OntimeCheckEvent {
         RankFileReader rf = new RankFileReader();
         PlayerDataReader reader = new PlayerDataReader(plugin);
         int playerTimeTotal = reader.getFileConfig(p).getInt("ontime");
-        if ((rf.getRankupTime(p)*60) <= playerTimeTotal) {
+        if ((rf.getRankupTime(p)) <= playerTimeTotal) {
             String prevGroup = Main.permission.getPrimaryGroup(p);
             if (rf.getNextRank(p) == null) {
 
             } else {
                 Bukkit.broadcastMessage(Messages.ONTIME_RANKUP.replaceAll("%spiller%", p.getName()).replaceAll("%rank%", rf.getNextRank(p)));
-                Main.permission.playerAddGroup(null, p, rf.getNextRank(p));
                 Main.permission.playerRemoveGroup(null, p, prevGroup);
+                Main.permission.playerAddGroup(null, p, rf.getNextRank(p));
+
             }
         }
     }

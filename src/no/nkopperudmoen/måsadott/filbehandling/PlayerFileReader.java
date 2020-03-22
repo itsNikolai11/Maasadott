@@ -2,6 +2,7 @@ package no.nkopperudmoen.måsadott.filbehandling;
 
 import no.nkopperudmoen.måsadott.Main;
 import no.nkopperudmoen.måsadott.Rover.Home;
+import no.nkopperudmoen.måsadott.Rover.PlayerTime;
 import no.nkopperudmoen.måsadott.Rover.Rover;
 
 import no.nkopperudmoen.måsadott.util.Messages;
@@ -22,6 +23,13 @@ public class PlayerFileReader {
             ObjectInputStream in = new ObjectInputStream(oi);
             //TODO End of file exception når ikke satt hjem
             p.homes.addAll((ArrayList<Home>) in.readObject());
+            PlayerTime ontime = (PlayerTime) in.readObject();
+            if (ontime == null) {
+                p.setOntime(new PlayerTime());
+            } else {
+                p.setOntime(ontime);
+            }
+
         } catch (NoSuchFileException e) {
             Files.createFile(Paths.get((Main.getPlugin(Main.class).getDataFolder().toPath() + "\\Players\\" + p.getUuid() + ".jobj")));
         }
@@ -33,6 +41,13 @@ public class PlayerFileReader {
         InputStream oi = Files.newInputStream(Paths.get(Messages.plugin.getDataFolder().toPath() + "\\Players\\" + p.getUniqueId() + ".jobj"));
         ObjectInputStream in = new ObjectInputStream(oi);
         return (ArrayList<Home>) in.readObject();
+    }
+
+    public PlayerTime getOntime(Player p) throws IOException, ClassNotFoundException {
+        InputStream oi = Files.newInputStream(Paths.get(Messages.plugin.getDataFolder() + "\\Players\\" + p.getUniqueId() + ".jobj"));
+        ObjectInputStream in = new ObjectInputStream(oi);
+        in.readObject();
+        return (PlayerTime) in.readObject();
     }
 
     public String toString(ArrayList<Home> list) {

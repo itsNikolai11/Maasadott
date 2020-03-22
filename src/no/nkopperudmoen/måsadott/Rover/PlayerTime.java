@@ -1,10 +1,12 @@
 package no.nkopperudmoen.måsadott.Rover;
 
-public class PlayerTime {
+import java.io.Serializable;
+
+public class PlayerTime implements Serializable {
     private int min;
 
     public PlayerTime() {
-
+        min = 0;
     }
 
     public int getMin() {
