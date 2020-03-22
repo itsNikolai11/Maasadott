@@ -1,0 +1,65 @@
+name: itsNikolai11
+main: no.nkopperudmoen.måsadott.Main
+version: 0.0.1
+depend: [Vault, PermissionsEx]
+api-version: 1.15
+commands:
+  r:
+    description: Svarer på den siste meldingen du fikk
+    usage: /r (melding)
+  msg:
+    description: Sender en privat melding til en spiller
+    usage: /msg (spiller) (melding)
+    aliases:
+      - m
+      - message
+      - tell
+  spawn:
+    description: Teleporterer til spawn
+  setspawn:
+    description: Setter spawnpunkt for serveren
+  sethome:
+    description: Setter et nytt hjem der du står
+    usage: /sethome (navn)
+  home:
+    description: Teleporterer deg til hjemmet ditt
+    usage: /home (navn)
+  back:
+    description: Teleporterer til forrige posisjon
+  rtp:
+    description: Teleporterer til en tilfeldig posisjon
+  tpa:
+    description: Sender forespørsel om å teleportere til en spiller
+    usage: /tpa (spiller)
+  tpahere:
+    description: Sender forespørsel om å teleportere en spiller til deg
+    usage: /tpahere spiller
+  tpaccept:
+    description: Godtar en tp-forespørsel
+  tpdeny:
+    description: Avslår en tp-forespørsel
+  ontime:
+    description: Viser hvor lenge du har vært på serveren
+    aliases:
+      - rankup
+      - tid
+  rank:
+    description: Ranker en spiller til angitt rank
+    usage: /rank (spiller) (rank)
+  ranklist:
+    description: Liste  over ranks
+    aliases:
+      - ranks
+  warn:
+    description: Gir en spiller en advarsel
+    usage: /warn (spiller) (grunn)
+  homes:
+    description: Viser en liste over dine hjem
+  delhome:
+    description: Sletter valgt hjem
+    usage: /delhome (navn)
+  warnings:
+    description: Ser dine advarsler
+  sol:
+    description: Starter en avstemning for å skru av regnet
+

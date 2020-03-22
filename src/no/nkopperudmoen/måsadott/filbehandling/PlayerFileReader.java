@@ -1,0 +1,49 @@
+package no.nkopperudmoen.måsadott.filbehandling;
+
+import no.nkopperudmoen.måsadott.Main;
+import no.nkopperudmoen.måsadott.Rover.Home;
+import no.nkopperudmoen.måsadott.Rover.Rover;
+
+import no.nkopperudmoen.måsadott.util.Messages;
+import org.bukkit.entity.Player;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
+public class PlayerFileReader {
+    public void loadPlayer(Rover p) throws IOException, ClassNotFoundException {
+        try {
+            InputStream oi = Files.newInputStream(Paths.get(Messages.plugin.getDataFolder().toPath() + "\\Players\\" + p.getUuid() + ".jobj"));
+            ObjectInputStream in = new ObjectInputStream(oi);
+            //TODO End of file exception når ikke satt hjem
+            p.homes.addAll((ArrayList<Home>) in.readObject());
+        } catch (NoSuchFileException e) {
+            Files.createFile(Paths.get((Main.getPlugin(Main.class).getDataFolder().toPath() + "\\Players\\" + p.getUuid() + ".jobj")));
+        }
+
+
+    }
+
+    public ArrayList<Home> loadHomes(Player p) throws IOException, ClassNotFoundException {
+        InputStream oi = Files.newInputStream(Paths.get(Messages.plugin.getDataFolder().toPath() + "\\Players\\" + p.getUniqueId() + ".jobj"));
+        ObjectInputStream in = new ObjectInputStream(oi);
+        return (ArrayList<Home>) in.readObject();
+    }
+
+    public String toString(ArrayList<Home> list) {
+        String homes = "";
+        for (int i = 0; i < list.size(); i++) {
+            if (i == list.size() - 1) {
+                homes += list.get(i).getName();
+            } else {
+                homes += list.get(i).getName() + ", ";
+            }
+        }
+        return homes;
+    }
+}

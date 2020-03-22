@@ -1,0 +1,6 @@
+default:
+  time: 60
+  next: "diktator"
+diktator:
+  time: 120
+  next: "default"

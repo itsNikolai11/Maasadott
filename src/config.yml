@@ -1,0 +1,23 @@
+Debugging: true
+PrivateMessageFormat: "&b[%sender%&b&l > &b%receiver%] %msg%"
+SocialSpy: "&8[%sender% > %receiver%] %msg%"
+PrivateMessageNoReply: "&cDu har ingen å svare"
+PrivateMessageNoArgs: "&cDu må skrive en melding!"
+PlayerNotFound: "&cFant ikke spilleren &e%spiller%!"
+HomeTeleport: "&7Teleporterte til hjemmet &e%home%&7!"
+HomeNotFound: "&cFant ikke hjemmet &e%home%&c!"
+HomeSet: "&aHjem satt!"
+PlayerIsAfk: "&8%name% er nå AFK."
+PlayerIsNotAfk: "&85name% er ikke lenger AFK."
+AFKTimeout: 10
+Blacklisted:
+  - world_nether
+  - world_the_end
+TeleportCooldown: 300
+Spawn:
+  x: 0
+  y: 0
+  z: 0
+  yaw: 0
+  pitch: 0
+  world: world
