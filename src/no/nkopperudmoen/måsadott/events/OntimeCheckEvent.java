@@ -1,6 +1,7 @@
 package no.nkopperudmoen.måsadott.events;
 
 import no.nkopperudmoen.måsadott.Main;
+import no.nkopperudmoen.måsadott.controllers.PlayerController;
 import no.nkopperudmoen.måsadott.util.PlayerDataReader;
 import no.nkopperudmoen.måsadott.util.RankFileReader;
 import no.nkopperudmoen.måsadott.util.Messages;
@@ -20,6 +21,7 @@ public class OntimeCheckEvent {
 
             } else {
                 Bukkit.broadcastMessage(Messages.ONTIME_RANKUP.replaceAll("%spiller%", p.getName()).replaceAll("%rank%", rf.getNextRank(p)));
+                PlayerController.updateDisplayName(p);
                 Main.permission.playerRemoveGroup(null, p, prevGroup);
                 Main.permission.playerAddGroup(null, p, rf.getNextRank(p));
 

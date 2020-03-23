@@ -58,6 +58,7 @@ public class Ontime implements CommandExecutor {
                 p.sendMessage(Messages.ONTIME.replaceAll("%ontime%", TimeConverter.toString(TimeConverter.convertTime(minOnline))).replaceAll("%rank%", "ingen nye ranks"));
             } else {
                 p.sendMessage(Messages.ONTIME.replaceAll("%ontime%", TimeConverter.toString(TimeConverter.convertTime(minOnline))).replaceAll("%rank%", rf.getNextRank(p)).replaceAll("%time%", TimeConverter.toString(TimeConverter.convertTime(rf.getRankupTime(p) * 60))));
+                p.sendMessage(Messages.ONTIME_NEXT.replaceAll("%time%", TimeConverter.toString(TimeConverter.convertTime(rf.getRankupTime(p) * 60))));
             }
 
             OntimeCheckEvent.ontimeChangeEvent(p);

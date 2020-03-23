@@ -45,6 +45,7 @@ public class Messages {
     public static String TPAHERE = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("TpaHere"));
     public static String ONTIME = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("Ontime"));
     public static String ONTIME_RANKUP = ChatColor.translateAlternateColorCodes('&', config.getString("OntimeRankup"));
+    public static String ONTIME_NEXT = ChatColor.translateAlternateColorCodes('&', config.getString("OntimeNext"));
     public static String RANKLIST = ChatColor.translateAlternateColorCodes('&', config.getString("Ranklist"));
 
     public static String DELETE_HOME = ChatColor.translateAlternateColorCodes('&', config.getString("HomeDelete"));

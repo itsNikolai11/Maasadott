@@ -250,8 +250,10 @@ public class Rover {
             public void run() {
                 if (AfkCheck.checkAfk(p) && !isAfk()) {
                     setAfk(true, p);
+                    Debugger.debug(p.getName() + " MARKED AS AFK");
                     checkAfk(p, plugin);
                 } else {
+                    Debugger.debug(p.getName() + " NOT AFK");
                     checkAfk(p, plugin);
                 }
             }
@@ -289,6 +291,7 @@ public class Rover {
             public void run() {
                 if (p.isOnline()) {
                     getOntime().increaseTime();
+                    Debugger.debug("INCREASED ONTIME FOR " + p.getName() + " TO " + getOntime().getMin() + "(" + TimeConverter.convertTime(getOntime().getMin()) + ")");
                     PlayerFileSaver fs = new PlayerFileSaver();
                     try {
                         fs.savePlayerFile(PlayerController.getPlayer(p));

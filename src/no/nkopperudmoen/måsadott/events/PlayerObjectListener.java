@@ -31,13 +31,7 @@ public class PlayerObjectListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        World world = Bukkit.getServer().getWorld(plugin.getConfig().getString("Spawn.world"));
-        double x = Double.parseDouble(plugin.getConfig().getString("Spawn.x"));
-        double y = Double.parseDouble(plugin.getConfig().getString("Spawn.y"));
-        double z = Double.parseDouble(plugin.getConfig().getString("Spawn.z"));
-        float yaw = Float.parseFloat((String) plugin.getConfig().get("Spawn.yaw"));
-        float pitch = Float.parseFloat((String) plugin.getConfig().get("Spawn.pitch"));
-        Location spawn = new Location(world, x, y, z, yaw, pitch);
+
 
         Player p = e.getPlayer();
 
@@ -48,10 +42,6 @@ public class PlayerObjectListener implements Listener {
         pfo.writeToFile(p, "lastName", p.getName());
         pfo.writeToFile(p, "lastIP", p.getAddress().getAddress().toString());
         //po.ontimeTimer(p, plugin, pfo);
-        if (!p.hasPlayedBefore()) {
-            p.teleport(spawn);
-
-        }
         e.setJoinMessage(Messages.CONNECT.replaceAll("%spiller%", ChatColor.translateAlternateColorCodes('&', Main.chat.getPlayerPrefix(p)) + " " + p.getName()));
         PlayerFileSaver fs = new PlayerFileSaver();
         try {
@@ -59,6 +49,17 @@ public class PlayerObjectListener implements Listener {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        if (!p.hasPlayedBefore()) {
+            World world = Bukkit.getServer().getWorld(plugin.getConfig().getString("Spawn.world"));
+            double x = Double.parseDouble(plugin.getConfig().getString("Spawn.x"));
+            double y = Double.parseDouble(plugin.getConfig().getString("Spawn.y"));
+            double z = Double.parseDouble(plugin.getConfig().getString("Spawn.z"));
+            float yaw = Float.parseFloat((String) plugin.getConfig().get("Spawn.yaw"));
+            float pitch = Float.parseFloat((String) plugin.getConfig().get("Spawn.pitch"));
+            Location spawn = new Location(world, x, y, z, yaw, pitch);
+            p.teleport(spawn);
+        }
+
     }
 
     @EventHandler

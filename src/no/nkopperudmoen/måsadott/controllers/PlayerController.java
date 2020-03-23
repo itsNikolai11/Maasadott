@@ -5,6 +5,7 @@ import no.nkopperudmoen.måsadott.Main;
 import no.nkopperudmoen.måsadott.Rover.Rover;
 import no.nkopperudmoen.måsadott.filbehandling.PlayerFileReader;
 import no.nkopperudmoen.måsadott.util.PlayerDataReader;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -40,6 +41,7 @@ public class PlayerController {
             reader.loadPlayer(po);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            p.kickPlayer("Feil under innlasting av spillerdata! Vi har blitt varslet og er på saken.");
         }
         PlayerController.onlinePlayers.add(po);
         po.setOnline(true);

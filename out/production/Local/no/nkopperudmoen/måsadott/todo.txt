@@ -9,3 +9,6 @@ TP til spawn på første login
 //todo Hvis ikke neste rank, fjern melding krav for neste rank
 //TODO ontime top - lagres i binærfil
 //TODO penger kalt krager
+//TODO PlayerController etter Singleton-prinsippet. Vil bare ha EN liste med spillere, EN liste med vanished players etc.
+//TODO endre repliesTo i Rover-klassen til å bruke UUID
+//TODO spillerfil overskrives ved error på innlogging.

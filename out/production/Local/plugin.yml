@@ -1,8 +1,9 @@
-name: itsNikolai11
+name: Roverhula
 main: no.nkopperudmoen.måsadott.Main
 version: 0.0.1
 depend: [Vault, PermissionsEx]
 api-version: 1.15
+author: itsNikolai11
 commands:
   r:
     description: Svarer på den siste meldingen du fikk

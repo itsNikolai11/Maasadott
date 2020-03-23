@@ -50,8 +50,7 @@ public class RankFileReader {
     }
 
     public int getRankupTime(Player p) {
-        int rankuptime = fc.getInt(perm.getPrimaryGroup(p).toLowerCase() + ".time");
-        return rankuptime;
+        return fc.getInt(perm.getPrimaryGroup(p).toLowerCase() + ".time");
     }
 
 }

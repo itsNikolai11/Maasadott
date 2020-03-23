@@ -29,6 +29,7 @@ public class Rank implements CommandExecutor {
                         rankPlayer(target, rank);
                     } else {
                         rankPlayer(target, rank);
+                        PlayerController.updateDisplayName(target);
                         Bukkit.broadcastMessage(Messages.ONTIME_RANKUP.replaceAll("%spiller%", target.getName()).replaceAll("%rank%", rank).replaceAll("%ranker%", p.getName()));
                     }
                 }
@@ -42,6 +43,7 @@ public class Rank implements CommandExecutor {
                 Player target = Bukkit.getServer().getPlayer(args[0]);
                 String rank = args[1];
                 rankPlayer(target, rank);
+                PlayerController.updateDisplayName(target);
                 Bukkit.broadcastMessage(Messages.ONTIME_RANKUP.replaceAll("%spiller%", target.getName()).replaceAll("%rank%", rank).replaceAll("%ranker%", "CONSOLE"));
             }
         }
