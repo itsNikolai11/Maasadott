@@ -1,5 +1,9 @@
 package no.nkopperudmoen.måsadott.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class TimeConverter {
 
     public static int[] convertTime(int innMin) {
@@ -30,5 +34,11 @@ public class TimeConverter {
             tid = tidsarray[0] + " dager, " + tidsarray[1] + " timer og " + tidsarray[2] + " minutter";
         }
         return tid;
+    }
+
+    public static String toString(long time) {
+        Date d = new Date(time);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MMMM/yyyy HH:mm:ss", Locale.getDefault());
+        return format.format(d);
     }
 }

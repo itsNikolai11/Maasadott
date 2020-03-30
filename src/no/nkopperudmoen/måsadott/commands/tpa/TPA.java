@@ -31,15 +31,10 @@ public class TPA implements CommandExecutor {
                     Rover.getPlayerObject(target).setTprequest(p);
                     Rover.getPlayerObject(target).setTphRequest(null);
                     String tpa = Messages.TPA_MOTATT;
-                    tpa = tpa.replaceAll("%spiller%", target.getName());
+                    tpa = tpa.replaceAll("%spiller%", p.getName());
                     target.sendMessage(tpa);
                     p.sendMessage(Messages.TPA_SENDT);
-                    Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
-                        @Override
-                        public void run() {
-                            Rover.getPlayerObject(target).setTprequest(null);
-                        }
-                    }, 300 * 20);
+
                 }
 
             } else {

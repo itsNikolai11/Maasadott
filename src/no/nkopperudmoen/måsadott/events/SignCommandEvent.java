@@ -25,7 +25,7 @@ public class SignCommandEvent implements Listener {
                 Material.SPRUCE_SIGN, Material.JUNGLE_SIGN,
                 Material.BIRCH_SIGN, Material.DARK_OAK_SIGN));
         Player p = e.getPlayer();
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (skilttyper.contains(e.getClickedBlock().getType())) {
                 Sign s = (Sign) e.getClickedBlock().getState();
                 if (s.getLine(0).toLowerCase().contains("rtp") && s.getLine(1).equalsIgnoreCase("klikk for rtp")) {

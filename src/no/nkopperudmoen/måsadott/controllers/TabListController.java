@@ -1,5 +1,6 @@
 package no.nkopperudmoen.måsadott.controllers;
 
+import no.nkopperudmoen.måsadott.events.VanishManager;
 import no.nkopperudmoen.måsadott.util.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -14,6 +15,14 @@ public class TabListController implements Listener {
         p.setPlayerListHeader(Messages.TABLIST_HEADER);
         p.setPlayerListName(p.getDisplayName());
         p.setPlayerListFooter(Messages.TABLIST_FOOTER.replaceAll("%online%", Bukkit.getServer().getOnlinePlayers().size()
-                - PlayerController.vanishedPlayers.size() + "").replaceAll("%max%", Bukkit.getServer().getMaxPlayers() + ""));
+                - VanishManager.vanishedPlayers.size() + "").replaceAll("%max%", Bukkit.getServer().getMaxPlayers() + ""));
+    }
+
+    public static void updateTablist() {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            p.setPlayerListFooter(Messages.TABLIST_FOOTER.replaceAll("%online%", Bukkit.getServer().getOnlinePlayers().size()
+                    - VanishManager.vanishedPlayers.size() + "").replaceAll("%max%", Bukkit.getServer().getMaxPlayers() + ""));
+            p.setPlayerListName(p.getDisplayName());
+        }
     }
 }

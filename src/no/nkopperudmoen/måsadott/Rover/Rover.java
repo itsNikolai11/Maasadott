@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class Rover {
@@ -59,6 +60,7 @@ public class Rover {
 
     public ArrayList<Home> homes = new ArrayList<>();
     public ArrayList<Warning> warnings = new ArrayList<>();
+    public HashMap<UUID, BukkitTask> tpTask = new HashMap<>();
 
     public Rover(UUID uuid) {
         this.uuid = uuid;
@@ -81,7 +83,16 @@ public class Rover {
     }
 
     public void setTprequest(Player t) {
+        tpTask.remove(uuid);
+        BukkitTask cancelTpa = new BukkitRunnable() {
+            @Override
+            public void run() {
+                tprequest = null;
+            }
+        }.runTaskLater(Messages.plugin, 300 * 20);
+        tpTask.put(uuid, cancelTpa);
         this.tprequest = t;
+
     }
 
     public Player getTprequest() {
@@ -89,6 +100,15 @@ public class Rover {
     }
 
     public void setTphRequest(Player t) {
+        tpTask.remove(uuid);
+        BukkitTask cancelTpa = new BukkitRunnable() {
+            @Override
+            public void run() {
+                tphRequest = null;
+            }
+        }.runTaskLater(Messages.plugin, 300 * 20);
+        tpTask.put(uuid, cancelTpa);
+
         this.tphRequest = t;
     }
 
@@ -204,12 +224,9 @@ public class Rover {
             if (kickTimeout == 0) {
 
             } else {
-                Bukkit.getScheduler().runTaskLater(Messages.plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        if (afk) {
-                            p.kickPlayer("Du ble kicket for å være AFK i " + kickTimeout + " minutter");
-                        }
+                Bukkit.getScheduler().runTaskLater(Messages.plugin, () -> {
+                    if (isAfk) {
+                        p.kickPlayer("Du ble kicket for å være AFK i " + kickTimeout + " minutter");
                     }
                 }, (kickTimeout * 60) * 20);
             }
@@ -226,13 +243,7 @@ public class Rover {
 
     public static Rover getPlayerObject(Player player) {
 
-        for (Rover po : PlayerController.onlinePlayers) {
-            if (po.getUuid() == player.getUniqueId()) {
-                return po;
-            }
-
-        }
-        return null;
+        return PlayerController.players.get(player.getUniqueId());
 
     }
 
@@ -259,21 +270,6 @@ public class Rover {
             }
         }.runTaskLater(plugin, 300 * 20);
         PlayerController.afkTasks.put(p.getUniqueId(), afkTask.getTaskId());
-        //Shcedule ny task med kick timeout.
-        //Hvis afk cancel, cancel task via task id
-        /*Bukkit.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (!PlayerObject.getPlayerObject(p).isOnline()) {
-                    return;
-                } else if (AfkCheck.checkAfk(p) && !isAfk()) {
-                    setAfk(true, p);
-                    checkAfk(p, plugin);
-                } else {
-                    checkAfk(p, plugin);
-                }
-            }
-        }, 300 * 20);*/
     }
 
     public void setOnline(boolean online) {

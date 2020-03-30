@@ -14,7 +14,9 @@ public class AfkCheck implements Listener {
     public void onMove(PlayerMoveEvent e) {
         Rover po = Rover.getPlayerObject(e.getPlayer());
         if (po.isAfk()) {
-            po.setAfk(false, e.getPlayer());
+            if (e.getTo().distance(e.getFrom()) * 7 > 1) {
+                po.setAfk(false, e.getPlayer());
+            }
         }
     }
 

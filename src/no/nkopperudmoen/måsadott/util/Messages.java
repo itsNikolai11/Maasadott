@@ -47,11 +47,22 @@ public class Messages {
     public static String ONTIME_RANKUP = ChatColor.translateAlternateColorCodes('&', config.getString("OntimeRankup"));
     public static String ONTIME_NEXT = ChatColor.translateAlternateColorCodes('&', config.getString("OntimeNext"));
     public static String RANKLIST = ChatColor.translateAlternateColorCodes('&', config.getString("Ranklist"));
+    public static String PAYER_NOT_FOUND = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("PlayerNotFound"));
+    public static String COOLDOWN = ChatColor.translateAlternateColorCodes('&', config.getString("Cooldown"));
+    public static String KLEM = ChatColor.translateAlternateColorCodes('&', config.getString("Klem"));
+    public static String KYSS = ChatColor.translateAlternateColorCodes('&', config.getString("Kyss"));
+    public static String KLEM_SELV = ChatColor.translateAlternateColorCodes('&', config.getString("KlemSelv"));
+    public static String KYSS_SELV = ChatColor.translateAlternateColorCodes('&', config.getString("KyssSelv"));
+    public static String BY_HJELP = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("ByHjelp"));
 
     public static String DELETE_HOME = ChatColor.translateAlternateColorCodes('&', config.getString("HomeDelete"));
     public static String SET_HOME = ChatColor.translateAlternateColorCodes('&', config.getString("HomeSet"));
     public static String HOME_LIST = ChatColor.translateAlternateColorCodes('&', config.getString("HomeList"));
     public static String HOME_NOT_FOUND = ChatColor.translateAlternateColorCodes('&', config.getString("HomeNotFound"));
+    //ØKONOMI
+    public static String MONEY = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("Money"));
+
+    public static String MOB_DROP= PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("MobDrop"));
     //SOL
     public static String SOL = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("Sol"));
     public static String IKKE_NOK_STEMMER = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("SolIkkeNokStemmer"));
@@ -62,12 +73,17 @@ public class Messages {
     public static String SOL_BLOKKERT = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("SolBlokkert"));
     public static String SOL_STARTET = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("SolAvstemning"));
     public static String SOL_INSTANT = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("SolInstant"));
-
-
-
-
-
-
+    //STAB
+    public static String KICK = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("Kick"));
+    public static String CLEARCHAT = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("ClearChat"));
+    public static String TELEPORT = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("Teleport"));
+    public static String STABCHAT = ChatColor.translateAlternateColorCodes('&', config.getString("StabChat"));
+    public static String BAN = ChatColor.translateAlternateColorCodes('&', config.getString("Ban"));
+    public static String TEMPBAN = ChatColor.translateAlternateColorCodes('&', config.getString("Tempban"));
+    public static String Unban = ChatColor.translateAlternateColorCodes('&', config.getString("Unban"));
+    public static String ENABLE_VANISH = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("VanishPå"));
+    public static String DISABLE_VANISH = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("VanishAv"));
+    public static String GAMEMODE = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("GameMode"));
 
 
 }

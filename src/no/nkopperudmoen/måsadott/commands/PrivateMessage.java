@@ -2,6 +2,8 @@ package no.nkopperudmoen.måsadott.commands;
 
 import no.nkopperudmoen.måsadott.Main;
 import no.nkopperudmoen.måsadott.controllers.PlayerController;
+import no.nkopperudmoen.måsadott.events.VanishManager;
+import no.nkopperudmoen.måsadott.util.Messages;
 import no.nkopperudmoen.måsadott.util.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,19 +24,15 @@ public class PrivateMessage implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
         String msg = "";
-        String prefix = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Prefix") + " ");
-        String noArgs = prefix + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PrivateMessageNoArgs"));
-        String noPlayer = prefix + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PlayerNotFound"));
+        String noArgs = Messages.PREFIX + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PrivateMessageNoArgs"));
         if (sender instanceof Player) {
             Player p = (Player) sender;
 
             if (args.length > 1) {
-                if (Bukkit.getServer().getPlayer(args[0]) == null) {
-                    noPlayer = noPlayer.replaceAll("%spiller%", args[0]);
-                    p.sendMessage(noPlayer);
-                    return false;
+                Player target = Bukkit.getServer().getPlayer(args[0]);
+                if (target == null || VanishManager.vanishedPlayers.contains(target)) {
+                    p.sendMessage(Messages.PAYER_NOT_FOUND.replaceAll("%spiller%", args[0]));
                 } else {
-                    Player target = Bukkit.getServer().getPlayer(args[0]);
                     for (int i = 1; i < args.length; i++) {
                         msg += args[i] + " ";
                     }
@@ -60,13 +58,13 @@ public class PrivateMessage implements CommandExecutor {
 
                     PlayerController.getPlayer(p).setReplier(target);
                     PlayerController.getPlayer(target).setReplier(p);
-                    return true;
                 }
 
             } else {
                 p.sendMessage(noArgs);
 
             }
+            return true;
 
         }
 

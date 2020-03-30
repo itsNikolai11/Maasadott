@@ -1,14 +1,7 @@
-//TODO lagre hjemmene til en spiller i en binær spillerfil med UUID.player som filnavn. Laste inn disse som arrays når spilleren er etter hjem for å spare på minnebruken.
-//TODO sjekke perms ved opprettelse av skilt, fjern skilt dersom man ikke har perm til å lage et skilt med denne funksjonen.
 //TODO DELIMITER for å splitte opp ved sammenligning av skilttekst. For å støtte farger o.l.
 //TODO støtte for dager, timer og min i config for rankup. Bruke d,t og m som delimiter. Hvis array-lengden er 1, er det min, 2 er timer og min osv.
-//TODO gi en krone per klem man får?
-//TODO oppdatere prefix ved rankup
-TP til spawn på første login
-//TODO fjerne alle AFK-tasks før ny legges til
-//todo Hvis ikke neste rank, fjern melding krav for neste rank
 //TODO ontime top - lagres i binærfil
-//TODO penger kalt krager
-//TODO PlayerController etter Singleton-prinsippet. Vil bare ha EN liste med spillere, EN liste med vanished players etc.
 //TODO endre repliesTo i Rover-klassen til å bruke UUID
-//TODO spillerfil overskrives ved error på innlogging.
+//TODO fikse error-meldinger på msg
+//TODO billettsystem for t-bane?
+//TODO perm for res toggle plotborder

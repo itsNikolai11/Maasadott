@@ -1,6 +1,6 @@
 name: Roverhula
 main: no.nkopperudmoen.måsadott.Main
-version: 0.0.1
+version: 1.0.3
 depend: [Vault, PermissionsEx]
 api-version: 1.15
 author: itsNikolai11
@@ -15,6 +15,7 @@ commands:
       - m
       - message
       - tell
+      - melding
   spawn:
     description: Teleporterer til spawn
   setspawn:
@@ -22,11 +23,17 @@ commands:
   sethome:
     description: Setter et nytt hjem der du står
     usage: /sethome (navn)
+    aliases:
+      - setthjem
   home:
     description: Teleporterer deg til hjemmet ditt
     usage: /home (navn)
+    aliases:
+      - hjem
   back:
     description: Teleporterer til forrige posisjon
+    aliases:
+      - tilbake
   rtp:
     description: Teleporterer til en tilfeldig posisjon
   tpa:
@@ -37,8 +44,12 @@ commands:
     usage: /tpahere spiller
   tpaccept:
     description: Godtar en tp-forespørsel
+    aliases:
+      - godta
   tpdeny:
     description: Avslår en tp-forespørsel
+    aliases:
+      - avslå
   ontime:
     description: Viser hvor lenge du har vært på serveren
     aliases:
@@ -59,8 +70,59 @@ commands:
   delhome:
     description: Sletter valgt hjem
     usage: /delhome (navn)
+    aliases:
+      - sletthjem
   warnings:
     description: Ser dine advarsler
   sol:
     description: Starter en avstemning for å skru av regnet
-
+  kick:
+    description: Kaster ut en spiller
+    usage: /kick (spiller) (grunn)
+  c:
+    description: Rydder chatten
+  tp:
+    description: Teleporterer til en spiller
+    usage: /tp (spiller)
+    aliases:
+      - teleport
+  tphere:
+    description: Teleporter en spiller til deg
+    usage: /tphere (spiller)
+  klem:
+    description: Klemmer en spiller!
+    usage: /klem (spiller)
+  kyss:
+    description: Kysser en spiller!
+    usage: /kyss (spiller)
+  a:
+    description: StabChat
+    usage: /a (msg)
+  ban:
+    description: Banner en spiller permanent
+    usage: /ban (spiller) (grunn)
+  tempban:
+    description: Banner en bruker i en viss tid
+    usage: /tempban (spiller) (tid) (grunn)
+  unban:
+    description: Unbanner en spiller
+    usage: /unban (spiller)
+  vanish:
+    description: Gjemmer deg for andre spillere
+    aliases:
+      - v
+  gamemode:
+    description: Setter din gamemode
+    usage: /gamemode (1,2,3 eller 0)
+    aliases:
+      - gm
+  by:
+    description: Viser hjelp for byer
+  bal:
+    description: Viser hvor mye penger du har
+    aliases:
+      - money
+      - balance
+      - money
+      - penger
+      - bank

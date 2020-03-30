@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class PlayerFileReader {
     public void loadPlayer(Rover p) throws IOException, ClassNotFoundException {
@@ -32,6 +33,7 @@ public class PlayerFileReader {
 
         } catch (NoSuchFileException e) {
             Files.createFile(Paths.get((Main.getPlugin(Main.class).getDataFolder().toPath() + "\\Players\\" + p.getUuid() + ".jobj")));
+            p.setOntime(new PlayerTime());
         }
 
 
@@ -43,8 +45,8 @@ public class PlayerFileReader {
         return (ArrayList<Home>) in.readObject();
     }
 
-    public PlayerTime getOntime(Player p) throws IOException, ClassNotFoundException {
-        InputStream oi = Files.newInputStream(Paths.get(Messages.plugin.getDataFolder() + "\\Players\\" + p.getUniqueId() + ".jobj"));
+    public PlayerTime getOntime(UUID uuid) throws IOException, ClassNotFoundException {
+        InputStream oi = Files.newInputStream(Paths.get(Messages.plugin.getDataFolder() + "\\Players\\" + uuid + ".jobj"));
         ObjectInputStream in = new ObjectInputStream(oi);
         in.readObject();
         return (PlayerTime) in.readObject();

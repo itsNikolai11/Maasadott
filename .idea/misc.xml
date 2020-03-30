@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ExcludeFromValidation">
     <file url="file://$PROJECT_DIR$/src/no/nkopperudmoen/måsadott/PlayerObject.java" />
+    <file url="file://$PROJECT_DIR$/src/no/nkopperudmoen/måsadott/commands/stab/Unban.java" />
+    <file url="file://$PROJECT_DIR$/src/no/nkopperudmoen/måsadott/commands/stab/Ban.java" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

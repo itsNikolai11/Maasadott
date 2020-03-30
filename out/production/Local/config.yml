@@ -1,4 +1,4 @@
-Debugging: true
+Debugging: false
 PrivateMessageFormat: "&b[%sender%&b&l > &b%receiver%] %msg%"
 SocialSpy: "&8[%sender% > %receiver%] %msg%"
 PrivateMessageNoReply: "&cDu har ingen å svare"

@@ -32,12 +32,7 @@ public class TpaHere implements CommandExecutor {
                     Rover.getPlayerObject(target).setTphRequest(p);
                     target.sendMessage(Messages.TPAHERE.replaceAll("%spiller%", p.getName()));
                     p.sendMessage(Messages.TPA_SENDT);
-                    Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
-                        @Override
-                        public void run() {
-                            Rover.getPlayerObject(target).setTprequest(null);
-                        }
-                    }, 300 * 20);
+                    Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Rover.getPlayerObject(target).setTprequest(null), 300 * 20);
                 }
 
             } else {

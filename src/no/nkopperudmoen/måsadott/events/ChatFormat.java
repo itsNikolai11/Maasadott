@@ -35,10 +35,12 @@ public class ChatFormat implements Listener {
     }
 
     public String formatChat(Player p, String msg) {
+        msg = msg.replaceAll("%", "%%");
+        msg = msg.replace("\\", "\\\\");
+        msg = msg.replace("$", "\\$");
         String format = Messages.CHAT_FORMAT;
-        format = format.replaceAll("%spiller%",  p.getDisplayName());
-        format = format.replaceAll("%prefix%", ChatColor.translateAlternateColorCodes('&', Main.chat.getPlayerPrefix(p)));
-        format = format.replaceAll("%msg%", msg);
+        format = format.replaceFirst("§prefix§", ChatColor.translateAlternateColorCodes('&', Main.chat.getPlayerPrefix(p) + " " + p.getName()));
+        format = format.replaceFirst("§msg§", msg);
 
         return format;
 

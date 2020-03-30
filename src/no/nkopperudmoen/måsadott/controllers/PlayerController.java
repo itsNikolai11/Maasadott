@@ -4,34 +4,22 @@ import net.milkbowl.vault.chat.Chat;
 import no.nkopperudmoen.måsadott.Main;
 import no.nkopperudmoen.måsadott.Rover.Rover;
 import no.nkopperudmoen.måsadott.filbehandling.PlayerFileReader;
-import no.nkopperudmoen.måsadott.util.PlayerDataReader;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class PlayerController {
-    public static ArrayList<Rover> onlinePlayers = new ArrayList<>();
+    public static HashMap<UUID, Rover> players = new HashMap<>();
     public static ArrayList<Player> vanishedPlayers = new ArrayList<>();
     private static Chat chat = Main.chat;
     public static HashMap<UUID, Integer> ontimeTasks = new HashMap<>();
     public static HashMap<UUID, Integer> afkTasks = new HashMap<>();
 
     public static Rover getPlayer(Player p) {
-        Rover po = null;
-        for (Rover pl : onlinePlayers) {
-            if (pl.getUuid() == p.getUniqueId()) {
-                po = pl;
-            }
-        }
-        if (po == null) {
-            po = createPlayer(p);
-        }
-        return po;
+        return PlayerController.players.get(p.getUniqueId());
     }
 
     public static Rover createPlayer(Player p) {
@@ -43,7 +31,7 @@ public class PlayerController {
             e.printStackTrace();
             p.kickPlayer("Feil under innlasting av spillerdata! Vi har blitt varslet og er på saken.");
         }
-        PlayerController.onlinePlayers.add(po);
+        PlayerController.players.put(p.getUniqueId(), po);
         po.setOnline(true);
         po.checkAfk(p, Main.getPlugin(no.nkopperudmoen.måsadott.Main.class));
         po.ontimeTimer(p, Main.getPlugin(no.nkopperudmoen.måsadott.Main.class));

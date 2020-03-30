@@ -2,6 +2,8 @@ package no.nkopperudmoen.måsadott.commands;
 
 import no.nkopperudmoen.måsadott.Main;
 import no.nkopperudmoen.måsadott.controllers.PlayerController;
+import no.nkopperudmoen.måsadott.events.VanishManager;
+import no.nkopperudmoen.måsadott.util.Messages;
 import no.nkopperudmoen.måsadott.util.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,16 +21,15 @@ public class PrivateMessageReply implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        String prefix = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Prefix") + " ");
-        String noReply = prefix + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PrivateMessageNoReply"));
-        String noArgs = prefix + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PrivateMessageNoArgs"));
+        String noReply = Messages.PREFIX + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PrivateMessageNoReply"));
+        String noArgs = Messages.PREFIX + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("PrivateMessageNoArgs"));
         String msg = "";
         if (sender instanceof Player) {
             Player p = (Player) sender;
             if (args.length > 0) {
-                if (PlayerController.getPlayer(p).getReplier() == null) {
+                Player replier = PlayerController.getPlayer(p).getReplier();
+                if (replier == null || VanishManager.vanishedPlayers.contains(replier)) {
                     p.sendMessage(noReply);
-                    return false;
                 } else {
                     Player target = PlayerController.getPlayer(p).getReplier();
                     for (int i = 0; i < args.length; i++) {
@@ -57,6 +58,7 @@ public class PrivateMessageReply implements CommandExecutor {
 
             } else {
                 p.sendMessage(noArgs);
+                return true;
 
             }
 

@@ -4,16 +4,21 @@ import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import no.nkopperudmoen.måsadott.commands.*;
+import no.nkopperudmoen.måsadott.commands.economy.Money;
+import no.nkopperudmoen.måsadott.commands.stab.*;
 import no.nkopperudmoen.måsadott.commands.tpa.TPA;
 import no.nkopperudmoen.måsadott.commands.tpa.TpaHere;
 import no.nkopperudmoen.måsadott.commands.tpa.Tpaccept;
 import no.nkopperudmoen.måsadott.commands.tpa.Tpdeny;
 import no.nkopperudmoen.måsadott.controllers.TabListController;
 import no.nkopperudmoen.måsadott.events.*;
+import no.nkopperudmoen.måsadott.filbehandling.BanFileReader;
+import no.nkopperudmoen.måsadott.filbehandling.BanFileSaver;
 import no.nkopperudmoen.måsadott.util.RankFileReader;
 import no.nkopperudmoen.måsadott.controllers.PlayerController;
 import no.nkopperudmoen.måsadott.commands.Ontime;
 import no.nkopperudmoen.måsadott.util.Messages;
+import no.nkopperudmoen.måsadott.util.TemporaryBan;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,6 +31,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,17 +47,23 @@ public class Main extends JavaPlugin {
     public Main plugin = this;
     public static Permission permission = null;
     public static Chat chat = null;
-    // public static Economy economy = null;
+    public static Economy economy = null;
 
     public void onEnable() {
         config.options().copyDefaults(true);
         saveConfig();
         loadLang();
+
         registerPlayerFiles();
         registerCommands();
         registerEvents();
         registerPerms();
         registerVault();
+        try {
+            loadBanList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (Bukkit.getServer().getOnlinePlayers().size() > 0) {
             onReload();
         }
@@ -107,18 +120,35 @@ public class Main extends JavaPlugin {
         } else {
             System.err.println(pdf.getName() + " Ingen chat-plugins funnet!" + Messages.ANSI_RESET);
         }
-        /*if (econProvider != null) {
+        if (econProvider != null) {
             economy = econProvider.getProvider();
+            System.out.println(Messages.ANSI_GREEN + " Økonomi funnet! Koblet til " + econProvider.getProvider().getName() + Messages.ANSI_RESET);
         } else {
-            System.err.println(pdf.getName() + "Ingen economy-plugins funnet!");
-        }*/
-        //Foreløpig ikke behov for economy
+            System.err.println(Messages.ANSI_RED + pdf.getName() + "Ingen economy-plugins funnet!" + Messages.ANSI_RESET);
+        }
 
 
     }
 
     public void onDisable() {
 
+    }
+
+    void loadBanList() throws IOException {
+        BanFileReader reader = new BanFileReader();
+        BanFileSaver saver = new BanFileSaver();
+        File f = new File(Messages.plugin.getDataFolder() + "\\banlist.jobj");
+        if (!f.exists() && !f.isDirectory()) {
+            Files.createFile(Paths.get(Messages.plugin.getDataFolder() + "\\banlist.jobj"));
+        }
+        try {
+
+            TemporaryBan.tempbans = reader.getTempBans();
+            saver.saveBans();
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void registerPlayerFiles() {
@@ -148,6 +178,20 @@ public class Main extends JavaPlugin {
         getCommand("homes").setExecutor(new HomeList());
         getCommand("delhome").setExecutor(new DeleteHome());
         getCommand("sol").setExecutor(new Sol());
+        getCommand("kick").setExecutor(new Kick());
+        getCommand("c").setExecutor(new ClearChat());
+        getCommand("tp").setExecutor(new Teleport());
+        getCommand("tphere").setExecutor(new TPHere());
+        getCommand("klem").setExecutor(new Klem());
+        getCommand("kyss").setExecutor(new Kyss());
+        getCommand("a").setExecutor(new StabChat());
+        getCommand("ban").setExecutor(new Ban());
+        getCommand("tempban").setExecutor(new Tempban());
+        getCommand("unban").setExecutor(new Unban());
+        getCommand("vanish").setExecutor(new Vanish());
+        getCommand("gamemode").setExecutor(new GameMode());
+        getCommand("by").setExecutor(new By());
+        getCommand("bal").setExecutor(new Money());
 
     }
 
@@ -157,7 +201,7 @@ public class Main extends JavaPlugin {
     }
 
     public void registerEvents() {
-        pm.registerEvents(new PlayerObjectListener(this), this);
+        pm.registerEvents(new PlayerManager(this), this);
         pm.registerEvents(new BackListener(), this);
         pm.registerEvents(new AfkCheck(), this);
         pm.registerEvents(new TeleportCancel(), this);
@@ -166,6 +210,9 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new URLSpotter(), this);
         pm.registerEvents(new TabListController(), this);
         pm.registerEvents(new SignCommandEvent(), this);
+        pm.registerEvents(new VanishManager(), this);
+        pm.registerEvents(new MuteManager(), this);
+        pm.registerEvents(new MobMoneyDrop(), this);
 
     }
 }

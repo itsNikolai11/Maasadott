@@ -37,16 +37,9 @@ public class RankFileReader {
         }
     }
 
-    public FileConfiguration getRankFile() {
-        return fc;
-    }
-
     public String getNextRank(Player p) {
-        if (fc.getString(perm.getPrimaryGroup(p) + ".next") == null) {
-            return null;
-        } else {
-            return fc.getString(perm.getPrimaryGroup(p).toLowerCase() + ".next");
-        }
+        Debugger.debug("NESTE RANK FOR " + p.getName() + " ER " + fc.getString(perm.getPrimaryGroup(p).toLowerCase() + ".next"));
+        return fc.getString(perm.getPrimaryGroup(p).toLowerCase() + ".next");
     }
 
     public int getRankupTime(Player p) {
