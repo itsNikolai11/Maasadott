@@ -5,7 +5,9 @@ import no.nkopperudmoen.måsadott.Rover.Home;
 import no.nkopperudmoen.måsadott.Rover.PlayerTime;
 import no.nkopperudmoen.måsadott.Rover.Rover;
 
+import no.nkopperudmoen.måsadott.util.Debugger;
 import no.nkopperudmoen.måsadott.util.Messages;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
@@ -22,9 +24,10 @@ public class PlayerFileReader {
         try {
             InputStream oi = Files.newInputStream(Paths.get(Messages.plugin.getDataFolder().toPath() + "\\Players\\" + p.getUuid() + ".jobj"));
             ObjectInputStream in = new ObjectInputStream(oi);
-            //TODO End of file exception når ikke satt hjem
             p.homes.addAll((ArrayList<Home>) in.readObject());
+            Debugger.debug("LASTET HJEM FOR SPILLER " + p.getUuid());
             PlayerTime ontime = (PlayerTime) in.readObject();
+            Debugger.debug("LASTET ONTIME FOR SPILLER " + p.getUuid());
             if (ontime == null) {
                 p.setOntime(new PlayerTime());
             } else {

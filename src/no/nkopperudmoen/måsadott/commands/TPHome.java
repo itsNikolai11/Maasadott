@@ -10,10 +10,13 @@ import no.nkopperudmoen.måsadott.exceptions.HomeNotFoundException;
 import no.nkopperudmoen.måsadott.filbehandling.PlayerFileReader;
 import no.nkopperudmoen.måsadott.util.Messages;
 import no.nkopperudmoen.måsadott.util.Permissions;
+import no.nkopperudmoen.måsadott.util.UUIDFetcher;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
@@ -39,7 +42,7 @@ public class TPHome implements CommandExecutor {
                     p.teleport(po.getHome("hjem").getLocation());
                     p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(Messages.TELEPORTING));
                 } catch (HomeNotFoundException e) {
-                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(Messages.HOME_NOT_FOUND.replaceAll("%home%", "home")));
+                    p.sendMessage(Messages.HOME_LIST.replaceAll("%homes%", po.getHomeNames()));
                 }
             } else {
                 if (args[0].endsWith(":")) {

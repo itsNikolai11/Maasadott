@@ -49,6 +49,8 @@ public class Vanish implements CommandExecutor {
             VanishManager.vanishedPlayers.remove(p);
             p.setInvulnerable(false);
             p.sendMessage(Messages.DISABLE_VANISH);
+            p.setAllowFlight(false);
+            p.setFlying(false);
             PlayerController.updateDisplayName(p);
             int onlineCount = (Bukkit.getOnlinePlayers().size() - VanishManager.vanishedPlayers.size());
             Debugger.debug("ONLINE PLAYERS " + onlineCount);
@@ -68,6 +70,7 @@ public class Vanish implements CommandExecutor {
             VanishManager.vanishedPlayers.add(p);
             p.setAllowFlight(true);
             p.setInvulnerable(true);
+            p.setFlying(true);
             p.setDisplayName(ChatColor.WHITE + p.getName());
             for (Player t : Bukkit.getServer().getOnlinePlayers()) {
                 TabListController.updateTablist();

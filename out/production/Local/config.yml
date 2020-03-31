@@ -1,6 +1,6 @@
 Debugging: false
-PrivateMessageFormat: "&b[%sender%&b&l > &b%receiver%] %msg%"
-SocialSpy: "&8[%sender% > %receiver%] %msg%"
+PrivateMessageFormat: "&b[%sender%&b&l -> &b%receiver%] %msg%"
+SocialSpy: "&8[%sender% -> %receiver%] %msg%"
 PrivateMessageNoReply: "&cDu har ingen å svare"
 PrivateMessageNoArgs: "&cDu må skrive en melding!"
 PlayerNotFound: "&cFant ikke spilleren &e%spiller%!"

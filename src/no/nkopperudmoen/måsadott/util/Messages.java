@@ -84,6 +84,8 @@ public class Messages {
     public static String ENABLE_VANISH = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("VanishPå"));
     public static String DISABLE_VANISH = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("VanishAv"));
     public static String GAMEMODE = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("GameMode"));
+    public static String MUTED = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("Muted"));
+    public static String UNMUTED = PREFIX + ChatColor.translateAlternateColorCodes('&', config.getString("Unmuted"));
 
 
 }

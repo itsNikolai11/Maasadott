@@ -126,3 +126,6 @@ commands:
       - money
       - penger
       - bank
+  mute:
+    description: Muter en spiller
+    usage: /mute (Spiller)

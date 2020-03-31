@@ -4,6 +4,7 @@ import no.nkopperudmoen.måsadott.Main;
 import no.nkopperudmoen.måsadott.controllers.PlayerController;
 import no.nkopperudmoen.måsadott.events.AfkCheck;
 import no.nkopperudmoen.måsadott.events.OntimeCheckEvent;
+import no.nkopperudmoen.måsadott.events.VanishManager;
 import no.nkopperudmoen.måsadott.exceptions.HomeNotFoundException;
 import no.nkopperudmoen.måsadott.filbehandling.PlayerFileSaver;
 import no.nkopperudmoen.måsadott.util.*;
@@ -33,8 +34,11 @@ public class Rover {
     private Player tprequest;
     private Player tphRequest;
     private boolean isOnline;
+
+
     private String prefix;
     private PlayerTime ontime;
+
 
     public PlayerTime getOntime() {
         return ontime;
@@ -215,25 +219,28 @@ public class Rover {
     }
 
     public void setAfk(boolean afk, Player p) {
-        isAfk = afk;
-        if (afk) {
-            String playerIsAfk = Messages.playerIsAfk.replaceAll("%name%", p.getName());
-            Bukkit.broadcastMessage(playerIsAfk);
-            p.setPlayerListName(ChatColor.DARK_GRAY + p.getName());
-            int kickTimeout = Messages.plugin.getConfig().getInt("AFKTimeout");
-            if (kickTimeout == 0) {
+        if (!VanishManager.vanishedPlayers.contains(p)) {
+            isAfk = afk;
+            if (afk) {
+                String playerIsAfk = Messages.playerIsAfk.replaceAll("%name%", p.getName());
+                Bukkit.broadcastMessage(playerIsAfk);
+                p.setPlayerListName(ChatColor.DARK_GRAY + p.getName());
+                int kickTimeout = Messages.plugin.getConfig().getInt("AFKTimeout");
+                if (kickTimeout == 0) {
+
+                } else {
+                    Bukkit.getScheduler().runTaskLater(Messages.plugin, () -> {
+                        if (isAfk) {
+                            p.kickPlayer("Du ble kicket for å være AFK i " + kickTimeout + " minutter");
+                        }
+                    }, (kickTimeout * 60) * 20);
+                }
 
             } else {
-                Bukkit.getScheduler().runTaskLater(Messages.plugin, () -> {
-                    if (isAfk) {
-                        p.kickPlayer("Du ble kicket for å være AFK i " + kickTimeout + " minutter");
-                    }
-                }, (kickTimeout * 60) * 20);
+                String playerIsNotAfk = Messages.playerIsNotAfk.replaceAll("%name%", p.getName());
+                Bukkit.broadcastMessage(playerIsNotAfk);
+                p.setPlayerListName(ChatColor.DARK_GRAY + p.getDisplayName());
             }
-        } else {
-            String playerIsNotAfk = Messages.playerIsNotAfk.replaceAll("%name%", p.getName());
-            Bukkit.broadcastMessage(playerIsNotAfk);
-            p.setPlayerListName(ChatColor.DARK_GRAY + p.getDisplayName());
         }
     }
 

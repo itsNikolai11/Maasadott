@@ -17,6 +17,5 @@ public class PlayerFileSaver implements FileSaver, Serializable {
         ObjectOutputStream os = new ObjectOutputStream(out);
         os.writeObject(p.getHomes());
         os.writeObject(p.getOntime());
-
     }
 }

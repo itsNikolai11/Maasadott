@@ -192,6 +192,7 @@ public class Main extends JavaPlugin {
         getCommand("gamemode").setExecutor(new GameMode());
         getCommand("by").setExecutor(new By());
         getCommand("bal").setExecutor(new Money());
+        getCommand("mute").setExecutor(new Mute());
 
     }
 
@@ -211,7 +212,6 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new TabListController(), this);
         pm.registerEvents(new SignCommandEvent(), this);
         pm.registerEvents(new VanishManager(), this);
-        pm.registerEvents(new MuteManager(), this);
         pm.registerEvents(new MobMoneyDrop(), this);
 
     }

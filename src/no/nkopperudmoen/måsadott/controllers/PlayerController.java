@@ -13,7 +13,6 @@ import java.util.UUID;
 
 public class PlayerController {
     public static HashMap<UUID, Rover> players = new HashMap<>();
-    public static ArrayList<Player> vanishedPlayers = new ArrayList<>();
     private static Chat chat = Main.chat;
     public static HashMap<UUID, Integer> ontimeTasks = new HashMap<>();
     public static HashMap<UUID, Integer> afkTasks = new HashMap<>();

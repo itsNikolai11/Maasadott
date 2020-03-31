@@ -1,5 +1,7 @@
 package no.nkopperudmoen.måsadott.events;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import no.nkopperudmoen.måsadott.Main;
 import no.nkopperudmoen.måsadott.filbehandling.BanFileReader;
 import no.nkopperudmoen.måsadott.filbehandling.PlayerFileSaver;
@@ -19,7 +21,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 public class PlayerManager implements Listener {
     private Main plugin;
@@ -27,6 +31,8 @@ public class PlayerManager implements Listener {
     public PlayerManager(Main plugin) {
         this.plugin = plugin;
     }
+
+    public static ArrayList<UUID> muted = new ArrayList<>();
 
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent e) {
@@ -75,12 +81,18 @@ public class PlayerManager implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
-        Rover.getPlayerObject(e.getPlayer()).setOnline(false);
+        Rover r = Rover.getPlayerObject(e.getPlayer());
+        PlayerFileSaver saver = new PlayerFileSaver();
+        try {
+            saver.savePlayerFile(r);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         Bukkit.getScheduler().cancelTask(PlayerController.afkTasks.get(e.getPlayer().getUniqueId()));
         Bukkit.getScheduler().cancelTask(PlayerController.ontimeTasks.get(e.getPlayer().getUniqueId()));
         PlayerController.ontimeTasks.remove(e.getPlayer().getUniqueId());
         PlayerController.afkTasks.remove(e.getPlayer().getUniqueId());
-      //  PlayerController.getPlayer(e.getPlayer()).tpTask.get(e.getPlayer().getUniqueId()).cancel();
+        //  PlayerController.getPlayer(e.getPlayer()).tpTask.get(e.getPlayer().getUniqueId()).cancel();
         PlayerController.players.remove(e.getPlayer().getUniqueId());
         e.setQuitMessage(Messages.DISCONNECT.replaceAll("%spiller%", ChatColor.translateAlternateColorCodes('&', Main.chat.getPlayerPrefix(e.getPlayer())) + " " + e.getPlayer().getName()));
 
@@ -107,7 +119,12 @@ public class PlayerManager implements Listener {
     }
 
     @EventHandler
-    public void onPlayerAdvance(PlayerAdvancementDoneEvent e) {
+    public void onPlayerChat(AsyncPlayerChatEvent e) {
+        PlayerController.updateDisplayName(e.getPlayer());
+        if (muted.contains(e.getPlayer().getUniqueId())) {
+            e.setCancelled(true);
+            e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "Du kan ikke skrive i chat. Du er mutet!"));
+        }
 
     }
 }

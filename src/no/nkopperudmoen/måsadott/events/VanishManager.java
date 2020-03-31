@@ -18,8 +18,9 @@ public class VanishManager implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        if(vanishedPlayers.contains(p)){
+        if (vanishedPlayers.contains(p)) {
             e.setQuitMessage(null);
+            vanishedPlayers.remove(p);
         }
 
     }

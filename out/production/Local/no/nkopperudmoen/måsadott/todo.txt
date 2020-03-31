@@ -5,3 +5,6 @@
 //TODO fikse error-meldinger på msg
 //TODO billettsystem for t-bane?
 //TODO perm for res toggle plotborder
+//TODO se spilleres hjem offline
+//TODO tp til andre spilleres hjem. Bruke : som delimiter. Arg 0 er spiller, arg 1 er hjem
+//TODO serveren fryser enkelte ganger. Prøv å kjøre uten ewg
